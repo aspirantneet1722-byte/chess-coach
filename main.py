@@ -2,11 +2,14 @@ import requests
 
 USERNAME = "vinuaish"
 
-url = f"https://api.chess.com/pub/player/{USERNAME}/games"
+url = f"https://api.chess.com/pub/player/{USERNAME}"
 
 response = requests.get(url)
 
 if response.status_code == 200:
-    print("Connected to Chess.com successfully!")
+    data = response.json()
+    print("Connected to Chess.com!")
+    print("Username:", data["username"])
+    print("Name:", data.get("name", "Not available"))
 else:
-    print("Unable to connect. Status:", response.status_code)
+    print("Connection failed:", response.status_code)
